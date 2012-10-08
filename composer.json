@@ -1,0 +1,24 @@
+{
+    "name": "imkingdavid/personalusernotes",
+    "type": "phpbb3-extension",
+    "description": "An extension for phpBB 3.1 that allows users to have personal notes for their eyes only.",
+    "homepage": "https://www.github.com/imkingdavid/pun",
+    "version": "1.0.0",
+    "time": "2012-10-04",
+    "licence": "GPLv2",
+    "authors": [
+        {
+            "name": "David King (imkingdavid)",
+            "email": "imkingdavid@gmail.com",
+            "homepage": "http://www.thedavidking.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "phpbb": "3.1.0-dev",
+        "php": "5.4.0"
+    },
+    "extra": {
+        "display-name": "Personal User Notes"
+    }
+}

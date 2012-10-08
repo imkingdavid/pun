@@ -1,0 +1,20 @@
+services:
+    pun.manager:
+        class: phpbb_ext_imkingdavid_personalusernotes_core_manager
+        arguments:
+            - @template
+            - @user
+            - @dbal.conn
+            - %core.root_path%
+            - .%core.php_ext%
+
+    pun.controller:
+        class: phpbb_ext_imkingdavid_personalusernotes_controller
+        arguments:
+            - @controller.helper
+            - @pun.manager
+            - @template
+            - @user
+            - @dbal.conn
+            - %core.root_path%
+            - .%core.php_ext%

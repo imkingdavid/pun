@@ -1,0 +1,8 @@
+pun.note:
+    pattern: notes/{id}/{action}
+    defaults: { _controller: pun.controller, id: 0, action: view }
+    requirements:
+        # regex to match the following
+        # 1) A number of one or more digits
+        # 2) (1) followed by a dash with words separated by dashes
+        id: ([0-9]+)(-[a-zA-Z0-9-]+)?
