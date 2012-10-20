@@ -90,10 +90,10 @@ class phpbb_ext_imkingdavid_personalusernotes_controller
 			'TITLE'			=> $note['note_title'],
 			'CONTENT'		=> $note['note_contents'], // @todo: parse this
 
-			'U_VIEW'		=> $this->helper->url(array("{$note['note_id']}-{$note['note_slug']}")),
-			'U_EDIT'		=> $this->helper->url(array("{$note['note_id']}-{$note['note_slug']}", 'edit')),
-			'U_DELETE'		=> $this->helper->url(array("{$note['note_id']}-{$note['note_slug']}", 'delete')),
-			'U_VIEW_ALL'	=> $this->helper->url(array()),
+			'U_VIEW'		=> $this->helper->url(["{$note['note_id']}-{$note['note_slug']}"]),
+			'U_EDIT'		=> $this->helper->url(["{$note['note_id']}-{$note['note_slug']}", 'edit']),
+			'U_DELETE'		=> $this->helper->url(["{$note['note_id']}-{$note['note_slug']}", 'delete']),
+			'U_VIEW_ALL'	=> $this->helper->url([]),
 		];
 
 		if ($block)
