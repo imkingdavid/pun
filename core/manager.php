@@ -43,6 +43,46 @@ class phpbb_ext_imkingdavid_personalusernotes_core_manager
 	}
 
 	/**
+	* Add or update a note in the database
+	*
+	* @param phpbb_ext_imkingdavid_personalusernotes_core_note $note Note object
+	*/
+	protected function update(phpbb_ext_imkingdavid_personalusernotes_core_note $note)
+	{
+		if (!$note->loaded())
+		{
+			$note->load();
+		}
+
+		if (!$note->db_ready())
+		{
+			return false;
+		}
+
+		if ($note->exists())
+		{
+			$sql = 'UPDATE ' . NOTES_TABLE . '
+				SET ' . $this->db->sql_build_array('UPDATE', $note) . '
+				WHERE note_id = ' . (int) $note['note_id'];
+		}
+		else
+		{
+			$sql = 'INSERT INTO ' . NOTES_TABLE . ' ' . $this->db->sql_build_array('INSERT', $note);
+		}
+		$this->db->sql_query($sql);
+
+		if (!$note->exists())
+		{
+			$note->set_id($this->db->sql_nextid());
+		}
+
+		// Reload the note
+		$note->load(true);
+
+		return true;
+	}
+
+	/**
 	* Generate a URL-friendly slug from a string of text
 	* This takes something like: "I am a PHP String"
 	* and turns it into "i-am-a-php-string"

@@ -39,4 +39,7 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
+	'VIEWING_MY_NOTES'	=> 'My notes',
+
+	'NOTE_NOT_FOUND_ERROR'		=> 'The requested note does not exist.',
 ));

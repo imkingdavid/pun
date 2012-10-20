@@ -1,6 +1,6 @@
 pun.note:
     pattern: notes/{id}/{action}
-    defaults: { _controller: pun.controller, id: 0, action: view }
+    defaults: { _controller: pun.controller:handle, id: 0, action: view }
     requirements:
         # regex to match the following
         # 1) A number of one or more digits

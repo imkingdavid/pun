@@ -54,6 +54,17 @@ class phpbb_ext_imkingdavid_personalusernotes_core_note implements ArrayAccess
 	}
 
 	/**
+	* Whether or not the note has enough data for database action
+	* Notes must have at the very least a title and contents
+	*
+	* @return bool
+	*/
+	public function db_ready()
+	{
+		return !empty($this->data['note_title']) && !empty($this->data['note_contents']);
+	}
+
+	/**
 	* Load then note
 	*
 	* @param bool $reload Whether or not to reload the data
@@ -91,11 +102,12 @@ class phpbb_ext_imkingdavid_personalusernotes_core_note implements ArrayAccess
 	* Set the note ID
 	*
 	* @param int $id The new ID
-	* 
+	* @return phpbb_ext_imkingdavid_personalusernotes_core_note Current object
 	*/
 	public function set_id($id)
 	{
 		$this->note_id = (int) $id;
+		return $this;
 	}
 
 	/**
