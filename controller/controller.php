@@ -42,13 +42,7 @@ class phpbb_ext_imkingdavid_personalusernotes_controller
 
 		if (strpos('-', $id))
 		{
-			// Turn "###-ab-cd-ef"
-			// Into:
-			// id: ###
-			// slug: ab-cd-ef
-			$id = explode('-', $id);
-			$note_id = array_shift($id);
-			$slug = implode('-', $id);
+			list($note_id, $slug) = $this->separate_slug($id);
 		}
 		else
 		{
@@ -102,15 +96,16 @@ class phpbb_ext_imkingdavid_personalusernotes_controller
 
 	private function send_vars(array $vars, $block = '')
 	{
+		$slug = $this->combine_slug($note['note_id'], $note['note_slug']);
 
 		$template_vars = [
 			'TITLE'			=> $note['note_title'],
 			'CONTENT'		=> $note['note_contents'], // @todo: parse this
 
-			'U_VIEW'		=> $this->helper->url(["{$note['note_id']}-{$note['note_slug']}"]),
-			'U_EDIT'		=> $this->helper->url(["{$note['note_id']}-{$note['note_slug']}", 'edit']),
-			'U_DELETE'		=> $this->helper->url(["{$note['note_id']}-{$note['note_slug']}", 'delete']),
 			'U_VIEW_ALL'	=> $this->helper->url([]),
+			'U_VIEW'		=> $this->helper->url([$slug]),
+			'U_EDIT'		=> $this->helper->url([$slug, 'edit']),
+			'U_DELETE'		=> $this->helper->url([$slug, 'delete']),
 		];
 
 		if ($block)

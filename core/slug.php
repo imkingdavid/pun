@@ -63,4 +63,34 @@ trait phpbb_ext_imkingdavid_personalusernotes_core_slug
 	{
 		return preg_match('/([0-9]+)(-[a-zA-Z0-9-]+)?/', $slug);
 	}
+
+	/**
+	* Separate the ID from the slug in a URL
+	*
+	* @param string $url The ID+slug combined string in the URL
+	* @return array [(int) id, (string) slug]
+	*/
+	public function separate_slug($url)
+	{
+		// Turn "###-ab-cd-ef" into:
+		// id: ###
+		// slug: ab-cd-ef
+		$url = explode('-', $url);
+		return [
+			(int) array_shift($url),
+			implode('-', $url),
+		];
+	}
+
+	/**
+	* Simply combines the ID and the slug together, separated by a dash
+	*
+	* @param int $id
+	* @param string $slug
+	* @return string
+	*/
+	public function combine_slug($id, $slug)
+	{
+		return "{$id}-{$slug}";
+	}
 }
