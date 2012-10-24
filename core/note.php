@@ -92,7 +92,7 @@ class phpbb_ext_imkingdavid_personalusernotes_core_note implements ArrayAccess
 	{
 		if ($this->loaded() && !$reload)
 		{
-			return $this->exists();
+			return $this;
 		}
 
 		$this->loaded = true;

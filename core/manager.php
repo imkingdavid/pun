@@ -92,11 +92,7 @@ class phpbb_ext_imkingdavid_personalusernotes_core_manager
 	*/
 	protected function update(phpbb_ext_imkingdavid_personalusernotes_core_note $note)
 	{
-		if (!$note->loaded())
-		{
-			$note->load();
-		}
-
+		$note->load();
 		if (!$note->db_ready())
 		{
 			return false;
