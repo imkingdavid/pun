@@ -31,6 +31,13 @@ class phpbb_ext_imkingdavid_personalusernotes_controller
 		$this->helper->set_base_url(['notes']);
 	}
 
+	/**
+	* Handle requests to this controller
+	*
+	* @param string $action What to do
+	* @param int $id Note ID (with optional slug)
+	* @return Response
+	*/
 	public function handle($action = 'view', $id = 0)
 	{
 		$this->user->add_lang_ext('imkingdavid/personalusernotes', 'controller');
@@ -94,7 +101,15 @@ class phpbb_ext_imkingdavid_personalusernotes_controller
 		return $this->helper->render($template_file, $page_title);
 	}
 
-	private function send_vars(array $vars, $block = '')
+	/**
+	* Send a note to the template
+	*
+	* @param phpbb_ext_imkingdavid_personalusernotes_core_note $note
+	* @param string $block Optional block; if set, call is made to
+	*			   assign_block_vars($block, []), otherwise assign_vars()
+	* @return null
+	*/
+	protected function send_vars(phpbb_ext_imkingdavid_personalusernotes_core_note $note, $block = '')
 	{
 		$slug = $this->combine_slug($note['note_id'], $note['note_slug']);
 
