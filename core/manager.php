@@ -19,6 +19,15 @@ class phpbb_ext_imkingdavid_personalusernotes_core_manager
 {
 	use phpbb_ext_imkingdavid_personalusernotes_core_slug;
 
+	/**
+	* Constructor
+	*
+	* @param phpbb_template $template Template object
+	* @param phpbb_user $user User object
+	* @param dbal $db DBAL object
+	* @param string $phpbb_root_path Root path
+	* @param string $php_ext PHP extension
+	*/
 	public function __construct(phpbb_template $template, phpbb_user $user, dbal $db, $phpbb_root_path = './', $php_ext = '.php')
 	{
 		$this->template = $template;
@@ -28,6 +37,15 @@ class phpbb_ext_imkingdavid_personalusernotes_core_manager
 		$this->php_ext = $php_ext;
 	}
 
+	/**
+	* Load a single note
+	* This will return a note object whether or not the note exists
+	* The existence of the note not only depends on physical existence in the
+	* database but also on whether or not the note belongs to the current user
+	*
+	* @param int $note_id ID number of the note to load
+	* @return phpbb_ext_imkingdavid_personalusernotes_core_note
+	*/
 	public function load_note($note_id = 0)
 	{
 		if (!$note_id)
@@ -42,6 +60,11 @@ class phpbb_ext_imkingdavid_personalusernotes_core_manager
 		return $note;
 	}
 
+	/**
+	* Load a user's notes
+	*
+	* @return array
+	*/
 	public function load_notes()
 	{
 		$sql = 'SELECT *

@@ -40,6 +40,8 @@ class phpbb_ext_imkingdavid_personalusernotes_core_note implements ArrayAccess
 	/**
 	* Constructor method
 	*
+	* @param phpbb_user $user User object
+	* @param dbal $db DBAL object
 	* @param int $note_id ID the note, if applicable
 	*/
 	public function __construct(phpbb_user $user, dbal $db, $note_id = 0)

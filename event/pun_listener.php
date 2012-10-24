@@ -19,6 +19,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class phpbb_ext_imkingdavid_personalusernotes_event_pun_listener implements EventSubscriberInterface
 {
+	/**
+	* Constructor
+	*/
 	public function __construct()
 	{
 		global $phpbb_container;
@@ -28,6 +31,11 @@ class phpbb_ext_imkingdavid_personalusernotes_event_pun_listener implements Even
 		define('NOTES_TABLE', $table_prefix . 'user_notes');
 	}
 
+	/**
+	* Subscribe methods of this class (i.e. listeners) to events
+	*
+	* @return array
+	*/
 	static public function getSubscribedEvents()
 	{
 		return [];
