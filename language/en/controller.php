@@ -39,5 +39,15 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, [
 	'VIEWING_MY_NOTES'	=> 'My notes',
 
-	'NOTE_NOT_FOUND_ERROR'		=> 'The requested note does not exist.',
+	'NOTE_NOT_FOUND_ERROR'	=> 'The requested note does not exist.',
+
+	'RETURN_TO_NOTE'		=> [
+		1	=> 'View your note',
+		2	=> 'View your notes',
+	],
+
+	'UPDATING_NOTE'			=> 'Updating note',
+	'CREATING_NOTE'			=> 'Creating note',
+	'NOTE_CREATED'			=> 'Your note has been created.',
+	'NOTE_UPDATED'			=> 'Your note has been updated.',
 ]);

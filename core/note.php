@@ -154,7 +154,11 @@ class phpbb_ext_imkingdavid_personalusernotes_core_note implements ArrayAccess
 		$this->loaded = true;
 		$this->exists = $exists;
 
-		$this->data = $new_data;
+		foreach ($new_data as $key => $value)
+		{
+			$this->offsetSet($key, $value);
+		}
+
 		return $this;
 	}
 

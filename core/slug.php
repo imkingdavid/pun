@@ -27,17 +27,14 @@ trait phpbb_ext_imkingdavid_personalusernotes_core_slug
 	*/
 	public function generate_slug($input)
 	{
-		// If the input is already a valid slug, just return it
 		if ($this->valid_slug($input) === 1)
 		{
 			return $input;
 		}
 
-		// generate the slug
 		$input = strtolower($input);
 		$input = str_replace([' ', '_', '.', '/'], '-', $input);
 
-		// Trim extra dashes
 		$previous = $slug = '';
 		foreach (str_split($input) as $character)
 		{
@@ -46,8 +43,6 @@ trait phpbb_ext_imkingdavid_personalusernotes_core_slug
 				continue;
 			}
 
-			// Append the character to the slug and update the
-			// previous character
 			$slug .= $previous = $character;
 		}
 		return trim($slug, "-");

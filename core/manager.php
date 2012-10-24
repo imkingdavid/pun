@@ -48,11 +48,6 @@ class phpbb_ext_imkingdavid_personalusernotes_core_manager
 	*/
 	public function load_note($note_id = 0)
 	{
-		if (!$note_id)
-		{
-			return false;
-		}
-
 		// New syntax allowed by PHP 5.4
 		$note = (new phpbb_ext_imkingdavid_personalusernotes_core_note($this->user, $this->db, $note_id))
 				->load();

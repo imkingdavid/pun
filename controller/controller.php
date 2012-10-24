@@ -88,9 +88,37 @@ class phpbb_ext_imkingdavid_personalusernotes_controller
 			case 'add':
 			case 'edit':
 				$template_file = 'note_update_body.html';
-				$page_title = $this->user->lang($note_id ? 'UPDATING_NOTE' : 'ADDING_NOTE');
+				$page_title = $this->user->lang($note_id ? 'UPDATING_NOTE' : 'CREATING_NOTE');
 
+				if ($this->request->is_set_post('submit'))
+				{
+					$note = $this->manager->load_note($note_id);
 
+					$title = $this->request->variable('title', $note['note_title'] ?: '', true);
+					$content = $this->request->variable('content', $note['note_content'] ?: '', true);
+					$slug = $this->generate_slug($title);
+
+					$uid = $bitfield = $options = '';
+					generate_text_for_storage($content, $uid, $bitfield, $options, true, true, true);
+
+					$note->set_data([
+						'note_title' => $title,
+						'note_content'	=> $content,
+						'note_slug'	=> $slug,
+					]);
+					$this->manager->update($note);
+
+					$url_id = $this->combine_slug($note['note_id'], $slug);
+
+					$message = $this->user->lang($note->updated() ? 'NOTE_UPDATED' : 'NOTE_CREATED') .
+						'<br /><a href="' . $this->helper->url([$url_id]) . '">' .
+						$this->user->lang('RETURN_TO_NOTE') .
+						'</a><br /><a herf="' . $this->helper->url([]) . '">' .
+						$this->user->lang('RETURN_TO_NOTE', 2) .
+						'</a>';
+
+					return $this->helper->error(200, $message);
+				}
 			break;
 
 			default:
