@@ -88,6 +88,7 @@ class phpbb_ext_imkingdavid_personalusernotes_core_manager
 	* Add or update a note in the database
 	*
 	* @param phpbb_ext_imkingdavid_personalusernotes_core_note $note Note object
+	* @return bool
 	*/
 	protected function update(phpbb_ext_imkingdavid_personalusernotes_core_note $note)
 	{
