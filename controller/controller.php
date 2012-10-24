@@ -2,6 +2,8 @@
 
 class phpbb_ext_imkingdavid_personalusernotes_controller
 {
+	use phpbb_ext_imkingdavid_personalusernotes_core_slug;
+
 	public function __construct(phpbb_controller_helper $helper, phpbb_ext_imkingdavid_personalusernotes_core_manager $manager, phpbb_template $template, phpbb_user $user, dbal $db, phpbb_request $request)
 	{
 		$this->helper = $helper;
@@ -11,7 +13,7 @@ class phpbb_ext_imkingdavid_personalusernotes_controller
 		$this->db = $db;
 		$this->request = $request;
 		
-		$this->helper->set_base_url(array('notes'));
+		$this->helper->set_base_url(['notes']);
 	}
 
 	public function handle($action = 'view', $id = 0)
@@ -104,35 +106,5 @@ class phpbb_ext_imkingdavid_personalusernotes_controller
 		{
 			$this->template->assign_vars($template_vars);
 		}
-	}
-
-	/**
-	* Generate a URL-friendly slug from a string of text
-	* This takes something like: "I am a PHP String"
-	* and turns it into "i-am-a-php-string"
-	*
-	* @param string $title The original string
-	* @return string The URL slug
-	*/
-	private function generate_slug($title)
-	{
-		// generate the slug
-		$title = strtolower($title);
-		$title = str_replace(array(' ', '_', '.', '/'), '-', $title);
-
-		// Trim extra dashes
-		$previous = $slug = '';
-		foreach (str_split($title) as $character)
-		{
-			if ($character == '-' && (empty($previous) || $previous == '-'))
-			{
-				continue;
-			}
-
-			// Append the character to the title and update the
-			// previous character
-			$slug .= $previous = $character;
-		}
-		return trim($slug, "-");
 	}
 }

@@ -2,6 +2,8 @@
 
 class phpbb_ext_imkingdavid_personalusernotes_core_manager
 {
+	use phpbb_ext_imkingdavid_personalusernotes_core_slug;
+
 	public function __construct(phpbb_template $template, phpbb_user $user, dbal $db, $phpbb_root_path = './', $php_ext = '.php')
 	{
 		$this->template = $template;
@@ -19,7 +21,8 @@ class phpbb_ext_imkingdavid_personalusernotes_core_manager
 		}
 
 		// New syntax allowed by PHP 5.4
-		$note = (new phpbb_ext_imkingdavid_personalusernotes_core_note($this->user, $this->db, $note_id))->load();
+		$note = (new phpbb_ext_imkingdavid_personalusernotes_core_note($this->user, $this->db, $note_id))
+				->load();
 
 		return $note;
 	}
@@ -33,10 +36,11 @@ class phpbb_ext_imkingdavid_personalusernotes_core_manager
 		$rows = $this->db->sql_fetchrowset($result);
 		$this->db->sql_freeresult($result);
 
-		$notes = array();
+		$notes = [];
 		foreach ($rows as $row)
 		{
-			$notes[] = (new phpbb_ext_imkingdavid_personalusernotes_core_note($this->user, $this->db, $row['note_id']))->set_data($row, true);
+			$notes[] = (new phpbb_ext_imkingdavid_personalusernotes_core_note($this->user, $this->db, $row['note_id']))
+						->set_data($row, true);
 		}
 
 		return $notes;
@@ -80,35 +84,5 @@ class phpbb_ext_imkingdavid_personalusernotes_core_manager
 		$note->load(true);
 
 		return true;
-	}
-
-	/**
-	* Generate a URL-friendly slug from a string of text
-	* This takes something like: "I am a PHP String"
-	* and turns it into "i-am-a-php-string"
-	*
-	* @param string $title The original string
-	* @return string The URL slug
-	*/
-	public function generate_slug($title)
-	{
-		// generate the slug
-		$title = strtolower($title);
-		$title = str_replace(array(' ', '_', '.', '/'), '-', $title);
-
-		// Trim extra dashes
-		$previous = $slug = '';
-		foreach (str_split($title) as $character)
-		{
-			if ($character == '-' && (empty($previous) || $previous == '-'))
-			{
-				continue;
-			}
-
-			// Append the character to the title and update the
-			// previous character
-			$slug .= $previous = $character;
-		}
-		return trim($slug, "-");
 	}
 }

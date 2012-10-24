@@ -15,6 +15,6 @@ class phpbb_ext_imkingdavid_personalusernotes_event_pun_listener implements Even
 
 	static public function getSubscribedEvents()
 	{
-		return array();
+		return [];
 	}
 }

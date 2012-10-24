@@ -2,6 +2,7 @@
 
 class phpbb_ext_imkingdavid_personalusernotes_core_note implements ArrayAccess
 {
+	use phpbb_ext_imkingdavid_personalusernotes_core_slug;
 	/**
 	* Whether or not the load() method has been run
 	* @var bool
@@ -19,7 +20,7 @@ class phpbb_ext_imkingdavid_personalusernotes_core_note implements ArrayAccess
 	* Contents cannot be changed externally
 	* @var array
 	*/
-	private $data = array();
+	private $data = [];
 
 	/**
 	* Constructor method
@@ -108,37 +109,6 @@ class phpbb_ext_imkingdavid_personalusernotes_core_note implements ArrayAccess
 	{
 		$this->note_id = (int) $id;
 		return $this;
-	}
-
-	/**
-	* Generate a URL-friendly slug from a string of text
-	* This takes something like: "I am a PHP String"
-	* and turns it into "i-am-a-php-string"
-	*
-	* @param string $title The original string
-	* @return string The URL slug
-	*/
-	public function generate_slug($title)
-	{
-		// generate the slug
-		$title = strtolower($title);
-		$title = str_replace(array(' ', '_', '.', '/'), '-', $title);
-
-		// Trim extra dashes
-		$previous = $slug = '';
-		foreach (str_split($title) as $character)
-		{
-			if ($character == '-' && (empty($previous) || $previous == '-'))
-			{
-				continue;
-			}
-
-			// Append the character to the title and update the
-			// previous character
-			$slug .= $previous = $character;
-		}
-
-		return trim($slug, "-");
 	}
 
 	/**
