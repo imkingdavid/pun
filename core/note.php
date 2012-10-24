@@ -22,20 +22,32 @@ class phpbb_ext_imkingdavid_personalusernotes_core_note implements ArrayAccess
 	* Whether or not the load() method has been run
 	* @var bool
 	*/
-	private $loaded = false;
+	protected $loaded = false;
 
 	/**
 	* Whether or not the note exists in the database
 	* @var bool
 	*/
-	private $exists = false;
+	protected $exists = false;
 
 	/**
 	* Data array for internal use; can be accessed through ArrayAccess
 	* Contents cannot be changed externally
 	* @var array
 	*/
-	private $data = [];
+	protected $data = [];
+
+	/**
+	* User object
+	* @var phpbb_user
+	*/
+	protected $user;
+
+	/**
+	* DBAL object
+	* @var dbal
+	*/
+	protected $db;
 
 	/**
 	* Constructor method
