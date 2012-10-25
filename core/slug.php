@@ -86,6 +86,11 @@ trait phpbb_ext_imkingdavid_personalusernotes_core_slug
 	*/
 	public function combine_slug($id, $slug)
 	{
+		if (!$this->valid_slug($slug))
+		{
+			$slug = $this->generate_slug($slug);
+		}
+
 		return "{$id}-{$slug}";
 	}
 }

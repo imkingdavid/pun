@@ -39,7 +39,9 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, [
 	'VIEWING_MY_NOTES'	=> 'My notes',
 
-	'NOTE_NOT_FOUND_ERROR'	=> 'The requested note does not exist.',
+	'NOTE_NOT_FOUND_ERROR'			=> 'The requested note does not exist.',
+	'NOTE_UPDATE_FORM_CSRF_ERROR'	=> 'The form has timed out. Your changes have been retained; please submit the form again.',
+	'EMPTY_TITLE_ERROR'				=> 'You must provide a title for your note.',
 
 	'RETURN_TO_NOTE'		=> [
 		1	=> 'View your note',

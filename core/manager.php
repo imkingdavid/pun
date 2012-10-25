@@ -85,7 +85,7 @@ class phpbb_ext_imkingdavid_personalusernotes_core_manager
 	* @param phpbb_ext_imkingdavid_personalusernotes_core_note $note Note object
 	* @return bool
 	*/
-	protected function update(phpbb_ext_imkingdavid_personalusernotes_core_note $note)
+	public function update(phpbb_ext_imkingdavid_personalusernotes_core_note $note)
 	{
 		$note->load();
 		if (!$note->db_ready())
@@ -112,6 +112,57 @@ class phpbb_ext_imkingdavid_personalusernotes_core_manager
 
 		// Reload the note
 		$note->load(true);
+
+		return true;
+	}
+
+	/**
+	* Delete a note from the database
+	*
+	* @param phpbb_ext_imkingdavid_personalusernotes_core_note $note Note object
+	* @return bool
+	*/
+	public function delete(phpbb_ext_imkingdavid_personalusernotes_core_note $note)
+	{
+		if (!$note->loaded())
+		{
+			$note->load();
+		}
+
+		if (!$note->exists())
+		{
+			return false;
+		}
+
+		$sql = 'DELETE FROM ' . NOTES_TABLE . '
+			WHERE note_id = ' . (int) $note->get_id() . '
+				AND user_id = ' . (int) $this->user->data['user_id'];
+		$this->db->sql_query($sql);
+
+		return $this->db->sql_affectedrows() ? true : false;
+	}
+
+	/**
+	* Post a note to a forum
+	*
+	* @param phpbb_ext_imkingdavid_personalusernotes_core_note $note Note object
+	* @param int $forum_id ID of the forum to which to post the note
+	* @param bool $retain_note Whether or not to delete the note after posting it
+	*/
+	public function post(phpbb_ext_imkingdavid_personalusernotes_core_note $note, $forum_id, $retain_note = false)
+	{
+		if (!$auth->acl_get('f_post', $forum_id))
+		{
+			return false;
+		}
+
+		// Do the posting action
+		$note->load();
+
+		if (!$retain_note)
+		{
+			$this->delete($note);
+		}
 
 		return true;
 	}

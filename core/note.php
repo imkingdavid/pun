@@ -50,6 +50,12 @@ class phpbb_ext_imkingdavid_personalusernotes_core_note implements ArrayAccess
 	protected $db;
 
 	/**
+	* Note ID
+	* @var int
+	*/
+	protected $note_id;
+
+	/**
 	* Constructor method
 	*
 	* @param phpbb_user $user User object
@@ -138,6 +144,16 @@ class phpbb_ext_imkingdavid_personalusernotes_core_note implements ArrayAccess
 	{
 		$this->note_id = (int) $id;
 		return $this;
+	}
+
+	/**
+	* Get the note ID
+	*
+	* @return int $id Note ID
+	*/
+	public function get_id()
+	{
+		return (int) $this->note_id;
 	}
 
 	/**

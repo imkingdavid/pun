@@ -64,6 +64,7 @@ class phpbb_ext_imkingdavid_personalusernotes_controller
 					$template_file = 'note_list_body.html';
 					$page_title = $this->user->lang('VIEWING_MY_NOTES');
 					$notes = $this->manager->load_notes();
+					$total_notes = sizeof($notes);
 
 					foreach ($notes as $note)
 					{
@@ -90,35 +91,56 @@ class phpbb_ext_imkingdavid_personalusernotes_controller
 				$template_file = 'note_update_body.html';
 				$page_title = $this->user->lang($note_id ? 'UPDATING_NOTE' : 'CREATING_NOTE');
 
+				$error = [];
+
+				$note = $this->manager->load_note($note_id);
+
 				if ($this->request->is_set_post('submit'))
 				{
-					$note = $this->manager->load_note($note_id);
+					if (!check_form_key('pun_update_form'))
+					{
+						$error[] = 'NOTE_UPDATE_FORM_CSRF_ERROR';
+					}
 
 					$title = $this->request->variable('title', $note['note_title'] ?: '', true);
 					$content = $this->request->variable('content', $note['note_content'] ?: '', true);
-					$slug = $this->generate_slug($title);
 
-					$uid = $bitfield = $options = '';
-					generate_text_for_storage($content, $uid, $bitfield, $options, true, true, true);
+					if (empty($title))
+					{
+						$error[] = 'EMPTY_TITLE_ERROR';
+					}
 
-					$note->set_data([
-						'note_title' => $title,
-						'note_content'	=> $content,
-						'note_slug'	=> $slug,
-					]);
-					$this->manager->update($note);
+					if (empty($content))
+					{
+						$error[] = 'EMPTY_CONTENT_ERROR';
+					}
 
-					$url_id = $this->combine_slug($note['note_id'], $slug);
+					if (!sizeof($error))
+					{
+						$slug = $this->generate_slug($title);
 
-					$message = $this->user->lang($note->updated() ? 'NOTE_UPDATED' : 'NOTE_CREATED') .
-						'<br /><a href="' . $this->helper->url([$url_id]) . '">' .
-						$this->user->lang('RETURN_TO_NOTE') .
-						'</a><br /><a herf="' . $this->helper->url([]) . '">' .
-						$this->user->lang('RETURN_TO_NOTE', 2) .
-						'</a>';
+						$uid = $bitfield = $options = '';
+						generate_text_for_storage($content, $uid, $bitfield, $options, true, true, true);
 
-					return $this->helper->error(200, $message);
+						$note->set_data([
+							'note_title' => $title,
+							'note_content'	=> $content,
+							'note_slug'	=> $slug,
+						]);
+						$this->manager->update($note);
+
+						$message = $this->user->lang($action == 'edit' ? 'NOTE_UPDATED' : 'NOTE_CREATED') .
+							'<br /><a href="' . $this->helper->url([$this->combine_slug($note['note_id'], $slug)]) . '">' .
+							$this->user->lang('RETURN_TO_NOTE') .
+							'</a><br /><a herf="' . $this->helper->url([]) . '">' .
+							$this->user->lang('RETURN_TO_NOTE', 2) .
+							'</a>';
+
+						return $this->helper->error(200, $message);
+					}
 				}
+
+				add_form_key('pun_update_form');
 			break;
 
 			default:
@@ -134,16 +156,21 @@ class phpbb_ext_imkingdavid_personalusernotes_controller
 	*
 	* @param phpbb_ext_imkingdavid_personalusernotes_core_note $note
 	* @param string $block Optional block; if set, call is made to
-	*			   assign_block_vars($block, []), otherwise assign_vars()
+	*			   assign_block_vars($block, []), otherwise assign_vars([])
 	* @return null
 	*/
 	protected function send_vars(phpbb_ext_imkingdavid_personalusernotes_core_note $note, $block = '')
 	{
 		$slug = $this->combine_slug($note['note_id'], $note['note_slug']);
 
+		// Eventually these will be split out so users can change the options
+		// on the posting page
+		$options = OPTION_FLAG_BBCODE + OPTION_FLAG_SMILIES + OPTION_FLAG_LINKS;
+		$contents = generate_text_for_display($note['note_contents'], $note['note_uid'], $note['note_bitfield'], $options);
+
 		$template_vars = [
 			'TITLE'			=> $note['note_title'],
-			'CONTENT'		=> $note['note_contents'], // @todo: parse this
+			'CONTENT'		=> $note['note_contents'],
 
 			'U_VIEW_ALL'	=> $this->helper->url([]),
 			'U_VIEW'		=> $this->helper->url([$slug]),
