@@ -1,15 +1,15 @@
 <?php
 /**
-*
-* @package pun
-* @copyright (c) 2012 David King (imkingdavid)
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
-*
-*/
+ *
+ * @package pun
+ * @copyright (c) 2012 David King (imkingdavid)
+ * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+ *
+ */
 
 /**
-* @ignore
-*/
+ * @ignore
+ */
 if (!defined('IN_PHPBB'))
 {
 	exit;
