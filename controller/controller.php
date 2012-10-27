@@ -54,6 +54,7 @@ class phpbb_ext_imkingdavid_personalusernotes_controller
 		else
 		{
 			$note_id = (int) $id;
+			$slug = '';
 		}
 
 		switch ($action)
@@ -86,7 +87,15 @@ class phpbb_ext_imkingdavid_personalusernotes_controller
 				}
 			break;
 
+			case 'create':
+			case 'new':
+				$action = 'add';
+			// no break;
 			case 'add':
+
+			case 'update':
+				$action = 'edit';
+			// no break;
 			case 'edit':
 				$template_file = 'note_update_body.html';
 				$page_title = $this->user->lang($note_id ? 'UPDATING_NOTE' : 'CREATING_NOTE');
