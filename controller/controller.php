@@ -2,7 +2,7 @@
 /**
  *
  * @package pun
- * @copyright (c) 2012 David King (imkingdavid)
+ * @copyright (c) 2013 David King (imkingdavid)
  * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
  *
  */
@@ -92,7 +92,6 @@ class phpbb_ext_imkingdavid_personalusernotes_controller
 				$action = 'add';
 			// no break;
 			case 'add':
-
 			case 'update':
 				$action = 'edit';
 			// no break;
