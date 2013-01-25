@@ -2,6 +2,11 @@ Personal User Notes
 =========================
 This is a 3rd-party extension for phpBB 3.1 that gives users the ability to create prive notes. These are only viewable by the creator and can be accessed within the User Control Panel (UCP). Notes are stored and displayed exactly like actual posts, and can even be converted to a new topic in postable forums in which the user has posting permissions.
 
+Requirements
+=======
+- >= phpBB 3.1-dev
+- >= PHP 5.4
+
 Testing
 =======
 Currently there is nothing to test, but when there is, anyone is welcome to aid with testing. If you encounter a problem, please create a new issue so that I can fix it. To test, you will need to do the following:
