@@ -7,17 +7,18 @@ Testing
 Currently there is nothing to test, but when there is, anyone is welcome to aid with testing. If you encounter a problem, please create a new issue so that I can fix it. To test, you will need to do the following:
 
 1. Checkout the latest version of the `develop` branch of @phpbb\phpbb3
-2. (If it is still unmerged) Merge in the latest version of @phpbb\phpbb3#995 (Controller PR)
+2. Optionally merge in the latest version of @phpbb\phpbb3#1180 (Migrations PR)
 3. Checkout the latest version of the `develop` branch of *this* repository and place it directly into the `phpbb/phpBB/ext/` directory (you will need to create it if you have not yet installed other extensions)
-4. Enable the extension via the ACP Extension manager (currently located in the System tab of the ACP) or the command-line extension manager (in the `phpbb/phpBB/develop/` directory).
+4. If you did not skip step 2, you should be able to just skip this step as well. Otherwise, run the SQL in this file: https://github.com/imkingdavid/pun/blob/57e45e72df07b7f3436c7ff7243cd42eda72ad83/schema.sql
+5. Enable the extension via the ACP Extension manager (currently located in the System tab of the ACP) or the command-line extension manager (in the `phpbb/phpBB/develop/` directory).
 
 Contributing
 =======
-I welcome contributions from anyone who is willing to help out. Simply fork this repository, create a new topic branch based on the `develop` branch and I will review it and we can discuss eventually merging it in if it looks good. I may enforce some more-strict guidelines on this if I get a lot of contributions so we can keep it organized.
+I welcome contributions from anyone who is willing to help out. Simply fork this repository, create a new topic branch based on the `develop` branch, make your changes, send a Pull Request (PR) and I will review it. We can discuss and I will eventually merge it in if it looks good. I may enforce some more-strict guidelines on this if I get a lot of contributions so we can keep it organized, but as of now there are no branch name or commit message guidelines. I do ask that you try to follow the phpBB coding Guidelines in general. Remember that the minimum PHP version for this extension is 5.4, so you may take advantage of features introduced in that version (e.g. short array syntax, et al).
 
 Giving Back
 =======
-Everything I do for phpBB, from MOD/Extension creation to core development, is volunteer work; I do not get any monetary compensation aside from donations. If you appreciate my work and want to buy me a cup of coffee, you are welcome to send me a donation via my PayPal (send it to imkingdavid[at]gmail[dot]com). Of course, all donations are voluntary.
+Everything I do for phpBB, from MOD/Extension creation to core development, is volunteer work; I do not get any monetary compensation aside from donations. If you appreciate my work and want to buy me a cup of coffee, you are welcome to send me a donation via my PayPal (send it to imkingdavid[at]gmail[dot]com). Of course, all donations are voluntary and any amount is greatly appreciated.
 
 License
 =======
